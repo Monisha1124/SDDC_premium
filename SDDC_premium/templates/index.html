@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sri Danwandhri Clinic — thoughtful, patient-first dental care.">
+<title>Sri Danwandhri Clinic | Your Smile, Our Commitment</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="nav">
+<a class="brand" href="#home"><span class="mark">SD</span><span><strong>Sri Danwandhri</strong><small>DENTAL CLINIC</small></span></a>
+<nav><a href="#home">Home</a><a href="#care">Care</a><a href="#treatments">Treatments</a><a href="#about">About</a><a href="#doctors">Doctors</a><a href="#reviews">Reviews</a><a href="#visit">Visit</a></nav>
+<a class="navbtn" href="#appointment">Book a Visit ↗</a>
+</header>
+
+<section class="hero" id="home">
+<div class="heroimg"></div><div class="shade"></div>
+<div class="heroText reveal"><div class="eyebrow">SRI DANWANDHRI CLINIC <i></i> DENTAL CARE</div>
+<h1>A healthier smile,<br><em>beautifully cared for.</em></h1>
+<p>Professional dental care in a calm, welcoming environment — designed around your comfort and confidence.</p>
+<div class="actions"><a class="goldbtn" href="#appointment">Book an Appointment →</a><a class="lightlink" href="#care">Explore our care ↓</a></div></div>
+<div class="heroCard"><span>01</span><div><b>Patient-first dentistry</b><small>Listen. Understand. Care.</small></div></div>
+<div class="scroll">SCROLL TO EXPLORE ↓</div>
+</section>
+
+<section class="section intro">
+<div class="tag">A BETTER DENTAL EXPERIENCE</div><div class="introGrid"><h2>Good dentistry begins<br>with <em>trust.</em></h2>
+<div><p class="large">From your first consultation to every follow-up visit, our goal is simple: make dental care feel clear, comfortable and personal.</p><a class="line" href="#about">Discover our approach ↗</a></div></div>
+</section>
+
+<section class="section dark" id="care">
+<div class="heading reveal"><div class="tag">FIND THE RIGHT CARE</div><h2>What brings you<br><em>to the dentist?</em></h2><p>Select a concern to move to the appointment form. This guide does not diagnose conditions.</p></div>
+<div class="problemGrid">
+<button class="problem reveal" data-problem="Tooth Pain"><span>01</span><i>✦</i><b>Tooth Pain</b><small>Discomfort or pain in a tooth.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Cavities"><span>02</span><i>◇</i><b>Cavities</b><small>Concern about decay or a damaged tooth.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Gum Problems"><span>03</span><i>⌁</i><b>Gum Problems</b><small>Bleeding, swelling or gum discomfort.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Sensitivity"><span>04</span><i>◌</i><b>Sensitivity</b><small>Discomfort with hot or cold foods.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Broken / Chipped Tooth"><span>05</span><i>↗</i><b>Broken / Chipped Tooth</b><small>A tooth that has cracked or chipped.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Missing Tooth"><span>06</span><i>＋</i><b>Missing Tooth</b><small>Questions about tooth replacement.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Teeth Alignment"><span>07</span><i>≋</i><b>Teeth Alignment</b><small>Questions about tooth positioning.</small><em>Explore care →</em></button>
+<button class="problem reveal" data-problem="Other"><span>08</span><i>+</i><b>Something Else</b><small>Have another dental concern?</small><em>Explore care →</em></button>
+</div>
+</section>
+
+<section class="section treatments" id="treatments">
+<div class="heading split reveal"><div><div class="tag">OUR DENTAL CARE</div><h2>Thoughtful care.<br><em>Clear choices.</em></h2></div><p>Replace these placeholders with the clinic's confirmed treatments only.</p></div>
+<div class="treatmentGrid">
+<article><span>01</span><h3>General Dentistry</h3><p>Replace with confirmed general dental services.</p><a href="#appointment">Ask about this →</a></article>
+<article class="featured"><span>02</span><h3>Preventive Care</h3><p>Replace with confirmed preventive treatments.</p><a href="#appointment">Ask about this →</a></article>
+<article><span>03</span><h3>Restorative Care</h3><p>Replace with confirmed restorative treatments.</p><a href="#appointment">Ask about this →</a></article>
+<article><span>04</span><h3>Smile & Alignment</h3><p>Replace with confirmed clinic services.</p><a href="#appointment">Ask about this →</a></article>
+</div>
+</section>
+<!-- =========================
+     BEFORE & AFTER GALLERY
+========================= -->
+
+<section class="before-after-section" id="before-after">
+
+    <div class="section-heading">
+        <span>OUR RESULTS</span>
+        <h2>Before & After</h2>
+        <p>
+            Explore selected treatment results and smile transformations
+            achieved at Sri Danwandhri Clinic.
+        </p>
+    </div>
+
+    {% if gallery_items %}
+
+    <div class="before-after-grid">
+
+        {% for item in gallery_items %}
+
+        <div class="before-after-card">
+
+            <div class="ba-images">
+
+                <!-- BEFORE -->
+                <div class="ba-image">
+                    <img
+                        src="{{ url_for('before_after_file', filename=item['before_photo']) }}"
+                        alt="Before {{ item['title'] }}"
+                        loading="lazy"
+                    >
+                    <span>Before</span>
+                </div>
+
+                <!-- AFTER -->
+                <div class="ba-image">
+                    <img
+                        src="{{ url_for('before_after_file', filename=item['after_photo']) }}"
+                        alt="After {{ item['title'] }}"
+                        loading="lazy"
+                    >
+                    <span>After</span>
+                </div>
+
+            </div>
+
+            <div class="ba-content">
+                <h3>{{ item['title'] }}</h3>
+                <p>{{ item['category'] }}</p>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="gallery-empty-public">
+        <div class="gallery-empty-icon">🦷</div>
+        <h3>Treatment Results Coming Soon</h3>
+        <p>
+            Our latest treatment results will be displayed here.
+        </p>
+    </div>
+
+    {% endif %}
+
+</section>
+
+<!-- TREATMENT & TESTIMONIAL MEDIA -->
+<!-- TREATMENT & PATIENT STORIES -->
+<section class="media-section" id="media">
+
+    <div class="media-section-inner">
+
+        <div class="section-head media-heading">
+            <span class="eyebrow">OUR TREATMENTS</span>
+
+            <h2>Treatments & Patient Stories</h2>
+
+            <p>
+                Explore our treatment videos, clinic moments and patient experiences
+                at Sri Danwandhri Clinic.
+            </p>
+        </div>
+
+        <div class="public-media-grid">
+
+            {% for item in media_items %}
+
+            <article class="public-media-card">
+
+                <div class="public-media">
+
+                    {% if item["media_type"] == "video" %}
+
+                        <video controls preload="metadata">
+                            <source
+                                src="{{ url_for('uploaded_file', filename=item['filename']) }}"
+                                type="video/mp4">
+                        </video>
+
+                    {% else %}
+
+                        <img
+                            src="{{ url_for('uploaded_file', filename=item['filename']) }}"
+                            alt="{{ item['title'] }}">
+
+                    {% endif %}
+
+                </div>
+
+                <div class="public-media-info">
+
+                    <span class="media-category">
+                        {{ item["category"] }}
+                    </span>
+
+                    <h3>{{ item["title"] }}</h3>
+
+                    {% if item["description"] %}
+                        <p>{{ item["description"] }}</p>
+                    {% endif %}
+
+                </div>
+
+            </article>
+
+            {% else %}
+
+            <div class="media-coming-soon">
+                <div class="coming-soon-icon">🦷</div>
+
+                <h3>Treatment Stories Coming Soon</h3>
+
+                <p>
+                    Our latest treatment videos, clinic moments and patient stories
+                    will be displayed here.
+                </p>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="section about" id="about">
+<div class="aboutImg"><img src="{{ url_for('static', filename='images/clinic-interior.jpg.jpeg') }}" alt="Sri Daneandhri Dental Care" onerror="this.style.display='none'"><div class="fallback"><span>YOUR CLINIC PHOTO</span><b>Warm. Calm.<br>Professional.</b></div><div class="float"><small>OUR APPROACH</small><b>Care that feels personal.</b></div></div>
+<div class="reveal"><div class="tag">ABOUT SRI DANWANDHRI</div><h2>More than dentistry.<br><em>A better experience.</em></h2><p class="large">We believe good dental care begins with listening, understanding and making every patient feel comfortable.</p><p>Replace this with the clinic's real story, experience, values and patient-care philosophy.</p>
+<div class="features"><div><b>01</b><span><strong>Patient First</strong><small>Your comfort and concerns come first.</small></span></div><div><b>02</b><span><strong>Modern Care</strong><small>Use only verified clinic claims.</small></span></div><div><b>03</b><span><strong>Personal Attention</strong><small>Guidance based on individual needs.</small></span></div><div><b>04</b><span><strong>Welcoming Environment</strong><small>A calmer way to experience dental visits.</small></span></div></div></div>
+</section>
+
+<section class="section doctors" id="doctors"><div class="heading split reveal"><div><div class="tag">MEET THE TEAM</div><h2>People behind<br><em>your care.</em></h2></div><p> qualifications and approved photographs.</p></div>
+<div class="doctorGrid"><article><div class="doctorPhoto"><img src="{{ url_for('static', filename='images/doctor1.jpg.jpeg') }}" alt="Clinic doctor" onerror="this.style.display='none'"><span>PHOTO</span></div><div class="doctorInfo"><small>DENTIST</small><h3>DR.VIDHYA YOGARAJAN K</h3><p>Qualification / specialization</p></div></article><article><div class="doctorPhoto second"><img src="{{ url_for('static', filename='images/doctor3.jpg.jpeg') }}" alt="Clinic doctor" onerror="this.style.display='none'"> <span>PHOTO</span></div><div class="doctorInfo"><small>DENTIST</small><h3>Dr. YOGARAJAN K</h3><p>Qualification / specialization</p></div></article></div>
+</section>
+
+<!-- ================= REVIEWS SECTION ================= -->
+<section class="reviews-section" id="reviews">
+
+    <div class="section-heading">
+        <span>Patient Experiences</span>
+        <h2>What Our Patients Say</h2>
+        <p>Your experience matters to us. Share your feedback with Sri Danwandhri Clinic.</p>
+    </div>
+
+    <!-- REVIEW FORM -->
+    <div class="review-form-card">
+
+        <h3>Share Your Experience</h3>
+        <p>Tell others about your experience at our clinic.</p>
+
+        <form action="/submit-review"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input
+                        type="text"
+                        name="patient_name"
+                        placeholder="Enter your name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Rating</label>
+
+                    <select name="rating" required>
+                        <option value="">Select Rating</option>
+                        <option value="5">★★★★★ — Excellent</option>
+                        <option value="4">★★★★☆ — Very Good</option>
+                        <option value="3">★★★☆☆ — Good</option>
+                        <option value="2">★★☆☆☆ — Average</option>
+                        <option value="1">★☆☆☆☆ — Poor</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Your Review</label>
+
+                <textarea
+                    name="comment"
+                    rows="5"
+                    placeholder="Write your experience..."
+                    required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Add Your Photo <span>(Optional)</span></label>
+
+                <input
+                    type="file"
+                    name="photo"
+                    accept="image/*">
+            </div>
+
+            <button type="submit" class="review-submit-btn">
+                Submit Review →
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- EXISTING REVIEWS -->
+    <div class="reviews-grid">
+
+        {% if reviews %}
+
+            {% for review in reviews %}
+
+            <div class="review-card">
+
+                {% if review['photo'] %}
+                    <img
+                        src="{{ url_for('uploaded_file', filename=review['photo']) }}"
+                        alt="Patient photo"
+                        class="review-photo">
+                {% endif %}
+
+                <div class="review-stars">
+
+                    {% for i in range(review['rating']) %}
+                        ★
+                    {% endfor %}
+
+                </div>
+
+                <p class="review-comment">
+                    "{{ review['comment'] }}"
+                </p>
+
+                <h4>{{ review['patient_name'] }}</h4>
+
+                <small>
+                    {{ review['created_at'] }}
+                </small>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-reviews">
+                <p>Be the first patient to share your experience! ❤️</p>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+<section class="section appointment" id="appointment"><div class="reveal"><div class="tag">BOOK YOUR VISIT</div><h2>Ready to take care of your <em>smile?</em></h2><p class="large">Request an appointment and the clinic can contact you to confirm the available time.</p><div class="notes"><div><span>01</span>Choose your concern</div><div><span>02</span>Send your request</div><div><span>03</span>Clinic confirms your visit</div></div></div>
+<form class="form reveal" id="bookingForm"><div class="row"><label>Full name<input name="name" placeholder="Your name" required></label><label>Phone<input name="phone" placeholder="Phone number" required></label></div><div class="row"><label>Email <small>(optional)</small><input name="email" type="email" placeholder="Email address"></label><label>Concern<select name="concern" id="concern" required><option value="">Select your concern</option><option>Tooth Pain</option><option>Cavities</option><option>Gum Problems</option><option>Sensitivity</option><option>Broken / Chipped Tooth</option><option>Missing Tooth</option><option>Teeth Alignment</option><option>Other</option></select></label></div><div class="row"><label>Preferred date<input name="date" type="date" required></label><label>Preferred time<input name="time" type="time"></label></div><label>Message <small>(optional)</small><textarea name="message" rows="4" placeholder="Anything you'd like the clinic to know?"></textarea><button class="darkbtn" type="submit">Request Appointment →</button><div id="formMessage"></div></form>
+</section>
+
+<section class="section visit-premium" id="visit">
+
+    <div class="visit-content reveal">
+
+        <div class="tag">VISIT SRI DANWANDHRI</div>
+
+        <h2>
+            We'd love to<br>
+            <em>welcome you.</em>
+        </h2>
+
+        <p class="visit-intro">
+            Your dental care journey starts here.
+            Find us easily and visit our clinic at Pallikonda.
+        </p>
+
+        <!-- ADDRESS -->
+        <div class="visit-detail">
+            <div class="visit-icon">⌖</div>
+            <div>
+                <span>CLINIC ADDRESS</span>
+                <strong>
+                    Kattupudi Road, Near Police Station,<br>
+                    SVM Nagar, Pallikonda,<br>
+                    Tamil Nadu – 635809
+                </strong>
+            </div>
+        </div>
+
+        <!-- PHONE -->
+        <div class="visit-detail">
+            <div class="visit-icon">☎</div>
+            <div>
+                <span>CALL THE CLINIC</span>
+                <strong>
+                    <a href="tel:+919443397205">+91 94433 97205</a>
+                </strong>
+            </div>
+        </div>
+
+        <!-- TIMINGS -->
+        <div class="visit-detail">
+            <div class="visit-icon">◷</div>
+            <div>
+                <span>CLINIC HOURS</span>
+
+                <div class="timings">
+                    <div>
+                        <b>MON – SAT</b>
+                        <small>9:30 AM – 1:30 PM</small>
+                        <small>5:30 PM – 9:00 PM</small>
+                    </div>
+
+                    <div>
+                        <b>SUNDAY</b>
+                        <small class="closed">Closed</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="visit-actions">
+
+            <a
+                class="darkbtn visit-btn"
+                href="https://maps.app.goo.gl/8FLU8uzXYmx8dhZa9"
+                target="_blank"
+                rel="noopener"
+            >
+                Get Directions ↗
+            </a>
+
+            <a
+                class="whatsapp-btn"
+                href="https://wa.me/919443397205"
+                target="_blank"
+                rel="noopener"
+            >
+                WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOCATION CARD -->
+
+    <div class="location-card reveal">
+
+        <div class="location-top">
+            <div>
+                <span>OUR LOCATION</span>
+                <h3>Pallikonda</h3>
+            </div>
+
+            <div class="location-pin">⌖</div>
+        </div>
+
+        <div class="map-preview">
+
+            <div class="map-road road-one"></div>
+            <div class="map-road road-two"></div>
+            <div class="map-road road-three"></div>
+
+            <div class="map-area">
+                <span>SVM NAGAR</span>
+            </div>
+
+            <div class="map-area area-two">
+                <span>PALLIKONDA</span>
+            </div>
+
+            <div class="map-marker">
+                <div>SD</div>
+                <span>Sri Danwandhri<br>Clinic</span>
+            </div>
+
+        </div>
+
+        <a
+            class="map-link"
+            href="https://maps.app.goo.gl/8FLU8uzXYmx8dhZa9"
+            target="_blank"
+            rel="noopener"
+        >
+            Open in Google Maps →
+        </a>
+
+    </div>
+
+</section>
+<footer><div><a class="brand" href="#home"><span class="mark">SD</span><span><strong>Sri Danwandhri</strong><small>DENTAL CLINIC</small></span></a><p>Thoughtful dental care for healthier, confident smiles.</p></div><div class="flinks"><a href="#home">Home</a><a href="#treatments">Treatments</a><a href="#appointment">Appointment</a><a href="#visit">Contact</a></div><small>© 2026 Sri Danwandhri Clinic. All rights reserved.</small></footer>
+<div class="mobileNav"><a href="#home">⌂<small>Home</small></a><a href="#care">✦<small>Care</small></a><a class="book" href="#appointment">＋<small>Book</small></a><a href="#reviews">♡<small>Reviews</small></a><a href="#visit">⌖<small>Visit</small></a></div>
+<a class="call" href="tel:0000000000">☎</a><a class="wa" href="#">◉</a>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<!-- SMART MOBILE CONTACT BAR -->
+<div class="smart-contact-bar">
+
+    <a href="tel:9443397205" class="smart-contact-item">
+        <span>📞</span>
+        <small>Call</small>
+    </a>
+
+    <a href="https://wa.me/919443397205"
+       target="_blank"
+       class="smart-contact-item whatsapp-item">
+        <span>💬</span>
+        <small>WhatsApp</small>
+    </a>
+
+    <a href="{{ url_for('home') }}#appointment"
+       class="smart-contact-item appointment-item">
+        <span>📅</span>
+        <small>Book</small>
+    </a>
+
+    <a href="https://maps.app.goo.gl/8FLU8uzXYmx8dhZa9"
+       target="_blank"
+       class="smart-contact-item">
+        <span>📍</span>
+        <small>Location</small>
+    </a>
+
+    <a href="{{ url_for('home') }}#treatments"
+       class="smart-contact-item">
+        <span>🦷</span>
+        <small>Treatments</small>
+    </a>
+
+</div>
+</body></html>

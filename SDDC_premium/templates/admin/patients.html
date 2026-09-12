@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Records | SDDC</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            background: #333;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+        }
+
+        .add-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #1769aa;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .patient-card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .patient-card h3 {
+            margin-top: 0;
+        }
+
+        .patient-info {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .empty {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>👤 Patient Records</h1>
+
+        <a href="{{ url_for('admin_dashboard') }}" class="back-btn">
+            ← Dashboard
+        </a>
+
+    </div>
+
+
+   <a href="{{ url_for('add_patient') }}" class="add-btn">
+    ➕ Add Patient
+</a>
+
+
+    {% for patient in patients %}
+
+    <div class="patient-card">
+
+        <h3>
+            {{ patient['patient_name'] }}
+        </h3>
+
+        <div class="patient-info">
+
+            <strong>Phone:</strong>
+            {{ patient['phone'] or 'Not provided' }}
+
+            <br>
+
+            <strong>Email:</strong>
+            {{ patient['email'] or 'Not provided' }}
+
+            <br>
+
+            <strong>Date of Birth:</strong>
+            {{ patient['date_of_birth'] or 'Not provided' }}
+
+            <br>
+
+            <strong>Gender:</strong>
+            {{ patient['gender'] or 'Not provided' }}
+
+            <br>
+
+            <strong>Address:</strong>
+            {{ patient['address'] or 'Not provided' }}
+
+            <br>
+
+            <strong>Medical Notes:</strong>
+            {{ patient['medical_notes'] or 'No notes' }}
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty">
+
+        <h3>No patient records yet</h3>
+
+        <p>Patient records will appear here.</p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Media | Sri Danwandhri Clinic</title>
+
+    <style>
+
+        *{
+            box-sizing:border-box;
+        }
+
+        body{
+            margin:0;
+            min-height:100vh;
+            background:#102f2d;
+            font-family:Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:30px;
+        }
+
+        .edit-card{
+            width:100%;
+            max-width:650px;
+            background:#f7f3eb;
+            border-radius:24px;
+            padding:35px;
+            box-shadow:0 20px 50px rgba(0,0,0,.25);
+        }
+
+        .edit-card h1{
+            margin-top:0;
+            color:#102f2d;
+        }
+
+        .edit-card p{
+            color:#68716e;
+        }
+
+        label{
+            display:block;
+            margin:18px 0 7px;
+            font-weight:700;
+            color:#102f2d;
+        }
+
+        input,
+        textarea,
+        select{
+            width:100%;
+            padding:13px;
+            border:1px solid #d5cdbc;
+            border-radius:10px;
+            background:white;
+            font:inherit;
+        }
+
+        textarea{
+            resize:vertical;
+        }
+
+        .buttons{
+            display:flex;
+            gap:12px;
+            margin-top:25px;
+        }
+
+        button,
+        .cancel{
+            flex:1;
+            padding:13px;
+            border:0;
+            border-radius:10px;
+            text-align:center;
+            text-decoration:none;
+            font-weight:700;
+            cursor:pointer;
+        }
+
+        button{
+            background:#102f2d;
+            color:white;
+        }
+
+        .cancel{
+            background:#d8d0c2;
+            color:#102f2d;
+        }
+
+        @media(max-width:600px){
+
+            body{
+                padding:15px;
+            }
+
+            .edit-card{
+                padding:25px 20px;
+            }
+
+            .buttons{
+                flex-direction:column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="edit-card">
+
+        <h1>✏️ Edit Photo / Video</h1>
+
+        <p>
+            Update the information displayed on the clinic website.
+        </p>
+
+        <form
+            action="{{ url_for('edit_media', media_id=item['id']) }}"
+            method="POST">
+
+            <label>Title</label>
+
+            <input
+                type="text"
+                name="title"
+                value="{{ item['title'] }}"
+                required>
+
+
+            <label>Description</label>
+
+            <textarea
+                name="description"
+                rows="5"
+                placeholder="Write a description...">{{ item['description'] }}</textarea>
+
+
+            <label>Category</label>
+
+            <select name="category" required>
+
+                <option value="Treatment"
+                    {% if item['category'] == 'Treatment' %}selected{% endif %}>
+                    Treatment
+                </option>
+
+                <option value="Dental Care"
+                    {% if item['category'] == 'Dental Care' %}selected{% endif %}>
+                    Dental Care
+                </option>
+
+                <option value="Patient Testimonial"
+                    {% if item['category'] == 'Patient Testimonial' %}selected{% endif %}>
+                    Patient Testimonial
+                </option>
+
+                <option value="Clinic"
+                    {% if item['category'] == 'Clinic' %}selected{% endif %}>
+                    Clinic
+                </option>
+
+                <option value="Other"
+                    {% if item['category'] == 'Other' %}selected{% endif %}>
+                    Other
+                </option>
+
+            </select>
+
+
+            <div class="buttons">
+
+                <button type="submit">
+                    💾 Save Changes
+                </button>
+
+                <a
+                    href="{{ url_for('admin_dashboard') }}"
+                    class="cancel">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

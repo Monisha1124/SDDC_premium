@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Clinic Admin Login</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #102f2d;
+
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+            width: 90%;
+            max-width: 420px;
+
+            background: #ffffff;
+
+            padding: 40px;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.25);
+        }
+
+        .logo {
+            color: #b18d4d;
+
+            font-size: 11px;
+            font-weight: 700;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 0;
+
+            color: #173b38;
+
+            font-family: Georgia, serif;
+
+            font-size: 34px;
+        }
+
+        .subtitle {
+            color: #68716e;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin: 10px 0 30px;
+        }
+
+        label {
+            display: block;
+
+            color: #173b38;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            border: 1px solid #ddd7ca;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        input:focus {
+            border-color: #b18d4d;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background: #173b38;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0d2927;
+        }
+
+        .error {
+            margin-top: 15px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background: #f8e7e5;
+
+            color: #a54d45;
+
+            font-size: 13px;
+        }
+
+        .back {
+            display: block;
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #68716e;
+
+            font-size: 12px;
+
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-box">
+
+        <div class="logo">
+            SRI DANWANDHRI CLINIC
+        </div>
+
+        <h1>Clinic Admin</h1>
+
+        <p class="subtitle">
+            Sign in to manage appointments and
+            patient booking requests.
+        </p>
+
+
+        <form method="POST">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Enter username"
+                required
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+            >
+
+
+            <button type="submit">
+                Sign In
+            </button>
+
+        </form>
+
+
+        {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <a href="/" class="back">
+            ← Back to clinic website
+        </a>
+
+    </div>
+
+</body>
+
+</html>
