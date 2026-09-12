@@ -1498,3 +1498,86 @@ body {
     body {
         padding-bottom: 78px;
     }
+    /* =========================================
+   CARE CARDS — RESPONSIVE TEXT SPACING
+   ========================================= */
+
+.problemGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+}
+
+.problem {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    padding: 28px;
+}
+
+/* Description area */
+.problem small {
+    display: block;
+    line-height: 1.7;
+    margin-top: 12px;
+    margin-bottom: 22px;
+    overflow-wrap: break-word;
+}
+
+/* Keep Explore care at the bottom */
+.problem em {
+    display: block;
+    margin-top: auto;
+    padding-top: 8px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   TABLET / HALF SCREEN
+   ========================================= */
+
+@media (max-width: 1100px) {
+
+    .problemGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .problem {
+        padding: 24px;
+    }
+
+    .problem small {
+        margin-bottom: 20px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+    .problemGrid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .problem {
+        width: 100%;
+        padding: 22px;
+    }
+
+    .problem small {
+        line-height: 1.7;
+        margin-top: 10px;
+        margin-bottom: 18px;
+    }
+
+    .problem em {
+        padding-top: 6px;
+    }
+}
