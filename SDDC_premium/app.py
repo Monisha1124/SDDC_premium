@@ -954,45 +954,29 @@ def appointment():
 # =========================================================
 # ADMIN LOGIN
 # =========================================================
-
-@app.route(
-    "/admin",
-    methods=["GET", "POST"]
-)
+@app.route("/admin", methods=["GET", "POST"])
 def admin_login():
 
     if request.method == "POST":
 
-        admin_username = os.environ.get(
-        "ADMIN_USERNAME",
-        "admin"
-)
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
-        admin_password = os.environ.get(
-        "ADMIN_PASSWORD",
-        ""
-)
+        admin_username = os.getenv("ADMIN_USERNAME", "admin")
+        admin_password = os.getenv("ADMIN_PASSWORD", "")
 
-        # Temporary login for testing
-        if (
-            username == admin_username
-            and password == admin_password
-        ):
+        if username == admin_username and password == admin_password:
 
             session["admin_logged_in"] = True
 
-            return redirect(
-                url_for("admin_dashboard")
-            )
+            return redirect(url_for("admin_dashboard"))
 
         return render_template(
             "admin/login.html",
             error="Invalid username or password."
         )
 
-    return render_template(
-        "admin/login.html"
-    )
+    return render_template("admin/login.html")
 
 
 # =========================================================
