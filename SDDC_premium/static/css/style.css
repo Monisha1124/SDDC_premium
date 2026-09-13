@@ -1581,3 +1581,27 @@ body {
         padding-top: 6px;
     }
 }
+/* ===== MOBILE FIX FOR SERVICE CARDS ===== */
+
+@media (max-width: 600px) {
+
+    .service-card {
+        height: auto !important;
+        min-height: 430px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .service-card p {
+        line-height: 1.7;
+        margin-bottom: 35px;
+    }
+
+    .service-card a,
+    .service-card .service-link {
+        margin-top: auto;
+        padding-top: 20px;
+        display: block;
+    }
+
+}

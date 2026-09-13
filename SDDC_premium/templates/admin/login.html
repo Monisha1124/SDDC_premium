@@ -178,39 +178,39 @@
         </p>
 
 
-        <form method="POST">
+       <form action="/admin" method="POST">
 
-            <label for="username">
-                Username
-            </label>
+    <label for="username">
+        Username
+    </label>
 
-            <input
-                id="username"
-                type="text"
-                name="username"
-                placeholder="Enter username"
-                required
-            >
+    <input
+        id="username"
+        name="username"
+        type="text"
+        placeholder="Enter username"
+        autocomplete="username"
+        required
+    >
 
+    <label for="password">
+        Password
+    </label>
 
-            <label for="password">
-                Password
-            </label>
+    <input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Enter password"
+        autocomplete="current-password"
+        required
+    >
 
-            <input
-                id="password"
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                required
-            >
+    <button type="submit">
+        Sign In
+    </button>
 
-
-            <button type="submit">
-                Sign In
-            </button>
-
-        </form>
+</form>
 
 
         {% if error %}
@@ -229,5 +229,5 @@
     </div>
 
 </body>
-
+<h2 style="color:red;text-align:center;">TEST LOGIN PAGE</h2>
 </html>
