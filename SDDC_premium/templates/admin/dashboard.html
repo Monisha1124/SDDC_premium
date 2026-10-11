@@ -225,6 +225,16 @@
             color: #173b38;
             font-size: 14px;
         }
+        .patient-profile-link {
+    color: #173b38;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.patient-profile-link:hover {
+    color: #b18d4d;
+    text-decoration: underline;
+}
 
         .phone,
         .email {
@@ -279,6 +289,38 @@
             background: #d1ecf1;
             color: #0c5460;
         }
+        /* DOCTOR PROCEDURE */
+
+.procedure-cell {
+    min-width: 220px;
+}
+
+.procedure-label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #b18d4d;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.procedure-input {
+    width: 200px;
+    min-height: 75px;
+    padding: 10px;
+    border: 1px solid #ddd7ca;
+    border-radius: 9px;
+    background: #fffdf9;
+    color: #173b38;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    resize: vertical;
+}
+
+.procedure-input:focus {
+    outline: none;
+    border-color: #c8a76b;
+    box-shadow: 0 0 0 2px rgba(200, 167, 107, 0.15);
+}
 
         /* UPDATE FORM */
         .update-form {
@@ -683,50 +725,8 @@
         </div>
 
     </div>
-    <div class="stat-card">
-    <h3>📅 TODAY</h3>
-    <p>{{ today_count }}</p>
-    <span>Appointments Today</span>
-</div>
 
-<div class="stat-card">
-    <h3>📊 THIS WEEK</h3>
-    <p>{{ week_count }}</p>
-    <span>Appointments This Week</span>
-</div>
 
-<div class="stat-card">
-    <h3>🗓️ THIS MONTH</h3>
-    <p>{{ month_count }}</p>
-    <span>Appointments This Month</span>
-</div>
-
-    </div>
-
-    <!-- PATIENT RECORDS -->
-
-    <div style="margin-bottom: 30px;">
-
-        <a href="{{ url_for('admin_patients') }}"
-           style="
-           display: inline-block;
-           background: #173b38;
-           color: white;
-           padding: 14px 22px;
-           border-radius: 10px;
-           text-decoration: none;
-           font-weight: bold;
-           font-size: 13px;
-           ">
-            👤 PATIENT RECORDS
-        </a>
-
-    </div>
-
-    <!-- APPOINTMENTS -->
-
-    <div class="appointments">
-        
     <!-- APPOINTMENTS -->
 
     <div class="appointments">
@@ -802,19 +802,21 @@
 
             <thead>
 
-                <tr>
+    <tr>
 
-                    <th>PATIENT</th>
-                    <th>DATE</th>
-                    <th>TIME</th>
-                    <th>CONCERN</th>
-                    <th>MESSAGE</th>
-                    <th>STATUS</th>
-                    <th>UPDATE</th>
+        <th>PATIENT</th>
+        <th>PATIENT TYPE</th>
+        <th>DATE</th>
+        <th>TIME</th>
+        <th>PROCEDURE</th>
+        <th>CONCERN</th>
+        <th>MESSAGE</th>
+        <th>STATUS</th>
+        <th>UPDATE</th>
 
-                </tr>
+    </tr>
 
-            </thead>
+</thead>
 
 
             <tbody>
@@ -826,6 +828,7 @@
                     data-phone="{{ appointment['phone'] }}"
                     data-date="{{ appointment['appointment_date'] }}"
                     data-status="{{ appointment['status'] }}"
+                    data-category="{{ patient_categories.get(appointment['phone'], 'NEW') }}"
                 >
 
                     <!-- PATIENT -->
@@ -833,8 +836,16 @@
                     <td>
 
                         <div class="patient">
-                            {{ appointment['patient_name'] }}
-                        </div>
+    <a
+        href="{{ url_for(
+            'admin_patient_profile',
+            appointment_id=appointment['id']
+        ) }}"
+        class="patient-profile-link"
+    >
+        {{ appointment['patient_name'] }}
+    </a>
+</div>
 
                         <div class="phone">
                             📞 {{ appointment['phone'] }}
@@ -848,6 +859,29 @@
 
                         {% endif %}
 
+                                        </td>
+
+
+                    <!-- PATIENT TYPE -->
+
+                    <td>
+
+                        {% set patient_type = patient_categories.get(appointment['phone'], 'NEW') %}
+
+                        {% if patient_type == 'EXISTING' %}
+
+                            <span class="status-badge status-CONFIRMED">
+                                EXISTING
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-badge status-PENDING">
+                                NEW
+                            </span>
+
+                        {% endif %}
+
                     </td>
 
 
@@ -858,11 +892,30 @@
                     </td>
 
 
-                    <!-- TIME -->
+                                        <!-- TIME -->
 
                     <td>
                         {{ appointment['appointment_time'] or 'Not specified' }}
                     </td>
+
+
+                   <!-- DOCTOR PROCEDURE -->
+
+<td class="procedure-cell">
+
+    <div class="procedure-label">
+        DOCTOR'S PROCEDURE
+    </div>
+
+    <textarea
+        name="doctor_procedure"
+        form="appointment-form-{{ appointment['id'] }}"
+        class="procedure-input"
+        placeholder="Enter procedure..."
+        rows="3"
+    >{{ appointment['doctor_procedure'] or '' }}</textarea>
+
+</td>
 
 
                     <!-- CONCERN -->
@@ -921,13 +974,14 @@
                     <td>
 
                         <form
-                            method="POST"
-                            action="{{ url_for(
-                                'update_status',
-                                appointment_id=appointment['id']
-                            ) }}"
-                            class="update-form"
-                        >
+    id="appointment-form-{{ appointment['id'] }}"
+    method="POST"
+    action="{{ url_for(
+        'update_status',
+        appointment_id=appointment['id']
+    ) }}"
+    class="update-form"
+>
 
                             <!-- STATUS SELECT -->
 
@@ -1033,56 +1087,11 @@
                                 Save
                             </button>
 
-                       </form>
+                        </form>
 
-<!-- WHATSAPP BUTTON -->
-<!-- SMART WHATSAPP BUTTON -->
+                    </td>
 
-{% if appointment['status'] == 'CONFIRMED' %}
-
-<a
-    href="https://wa.me/{{ appointment['phone'] | replace('+', '') | replace(' ', '') | replace('-', '') }}?text={{ ('Dear ' ~ appointment['patient_name'] ~ ',%0A%0AYour appointment at Sri Danwandhri Clinic has been CONFIRMED.%0A%0ADate: ' ~ appointment['appointment_date'] ~ '%0ATime: ' ~ (appointment['appointment_time'] or 'Not specified') ~ '%0A%0AThank you.%0ASri Danwandhri Clinic') | urlencode }}"
-    target="_blank"
-    class="whatsapp-btn"
->
-    💬 WhatsApp Confirmation
-</a>
-
-{% elif appointment['status'] == 'RESCHEDULED' %}
-
-<a
-    href="https://wa.me/{{ appointment['phone'] | replace('+', '') | replace(' ', '') | replace('-', '') }}?text={{ ('Dear ' ~ appointment['patient_name'] ~ ',%0A%0AYour appointment at Sri Danwandhri Clinic has been RESCHEDULED.%0A%0ANew Date: ' ~ (appointment['rescheduled_date'] or 'Not specified') ~ '%0ANew Time: ' ~ (appointment['rescheduled_time'] or 'Not specified') ~ '%0A%0APlease note the new appointment time.%0A%0AThank you.%0ASri Danwandhri Clinic') | urlencode }}"
-    target="_blank"
-    class="whatsapp-btn"
->
-    💬 WhatsApp Reschedule
-</a>
-
-{% elif appointment['status'] == 'CANCELLED' %}
-
-<a
-    href="https://wa.me/{{ appointment['phone'] | replace('+', '') | replace(' ', '') | replace('-', '') }}?text={{ ('Dear ' ~ appointment['patient_name'] ~ ',%0A%0AWe regret to inform you that your appointment at Sri Danwandhri Clinic has been CANCELLED.%0A%0APlease contact the clinic if you would like to book another appointment.%0A%0AThank you.%0ASri Danwandhri Clinic') | urlencode }}"
-    target="_blank"
-    class="whatsapp-btn"
->
-    💬 WhatsApp Cancellation
-</a>
-
-{% else %}
-
-<a
-    href="https://wa.me/{{ appointment['phone'] | replace('+', '') | replace(' ', '') | replace('-', '') }}"
-    target="_blank"
-    class="whatsapp-btn"
->
-    💬 Contact on WhatsApp
-</a>
-
-{% endif %}
-
-</td>
-
-</tr>
+                </tr>
 
 
             {% else %}
@@ -1090,7 +1099,7 @@
                 <tr>
 
                     <td
-                        colspan="7"
+                        colspan=""
                         class="empty"
                     >
 
@@ -1284,187 +1293,6 @@
         </button>
     {% endif %}
 </form>
-
-<!-- MEDIA MANAGEMENT -->
-<section class="media-management">
-
-    <div class="section-title">
-        <h2>🎥 Photos & Videos</h2>
-        <p>Manage treatment photos, treatment videos and testimonial videos.</p>
-    </div>
-
-    <div class="media-upload-card">
-
-        <h3>➕ Add New Photo / Video</h3>
-
-        <form action="{{ url_for('add_media') }}"
-              method="POST"
-              enctype="multipart/form-data">
-
-            <div class="form-group">
-                <label>Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Example: Teeth Cleaning Treatment"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <label>Description</label>
-                <textarea
-                    name="description"
-                    rows="4"
-                    placeholder="Write a short description..."
-                ></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Category</label>
-                <select name="category" required>
-                    <option value="">Select Category</option>
-                    <option value="Treatment">Treatment</option>
-                    <option value="Dental Care">Dental Care</option>
-                    <option value="Patient Testimonial">Patient Testimonial</option>
-                    <option value="Clinic">Clinic</option>
-                    <option value="Other">Other</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Media Type</label>
-
-                <select name="media_type" required>
-                    <option value="">Select Type</option>
-                    <option value="photo">Photo</option>
-                    <option value="video">Video</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Select Photo / Video</label>
-
-                <input
-                    type="file"
-                    name="media_file"
-                    accept="image/*,video/*"
-                    required>
-            </div>
-
-            <button type="submit" class="media-add-btn">
-                ➕ Add to Website
-            </button>
-
-        </form>
-
-    </div>
-
-</section>
-<!-- MANAGE UPLOADED MEDIA -->
-<section class="media-admin-section">
-
-    <div class="section-title">
-        <h2>📁 Manage Photos & Videos</h2>
-        <p>Content shown here can be managed by the doctor.</p>
-    </div>
-
-    <div class="admin-media-grid">
-
-        {% for item in media_items %}
-
-        <article class="admin-media-card">
-
-            <div class="admin-media-preview">
-
-                {% if item["media_type"] == "video" %}
-
-                    <video controls>
-                        <source
-                            src="{{ url_for('uploaded_file', filename=item['filename']) }}"
-                            type="video/mp4">
-                    </video>
-
-                {% else %}
-
-                    <img
-                        src="{{ url_for('uploaded_file', filename=item['filename']) }}"
-                        alt="{{ item['title'] }}">
-
-                {% endif %}
-
-            </div>
-
-            <div class="admin-media-details">
-
-                <span class="media-status">
-                    {% if item["visible"] %}
-                        ● VISIBLE
-                    {% else %}
-                        ● HIDDEN
-                    {% endif %}
-                </span>
-
-                <h3>{{ item["title"] }}</h3>
-
-                <p>{{ item["description"] }}</p>
-
-                <small>
-                    Category: {{ item["category"] }}
-                </small>
-
-                <div class="media-actions">
-
-                    <form
-                        action="{{ url_for('toggle_media_visibility', media_id=item['id']) }}"
-                        method="POST">
-
-                        <button type="submit">
-                            {% if item["visible"] %}
-                                👁 Hide
-                            {% else %}
-                                👁 Show
-                            {% endif %}
-                        </button>
-
-                    </form>
-
-                    <form
-                        action="{{ url_for('delete_media', media_id=item['id']) }}"
-                        method="POST"
-                        onsubmit="return confirm('Are you sure you want to delete this item?');">
-
-                        <button type="submit" class="delete-media-btn">
-                            🗑 Delete
-                        </button>
-
-                    </form>
-                    <form
-    action="{{ url_for('edit_media', media_id=item['id']) }}"
-    method="GET">
-
-    <button type="submit">
-        ✏️ Edit
-    </button>
-
-</form>
-
-                </div>
-
-            </div>
-
-        </article>
-
-        {% else %}
-
-        <div class="no-admin-media">
-            <p>No photos or videos have been added yet.</p>
-        </div>
-
-        {% endfor %}
-
-    </div>
-
-</section>
  <!-- DELETE -->
     <form
         action="{{ url_for('delete_gallery_item', item_id=item['id']) }}"
@@ -1636,35 +1464,7 @@ function toggleReschedule(select) {
 }
 
 </script>
-<script>
 
-function filterAppointments() {
-
-    const searchInput =
-        document.getElementById("patientSearch");
-
-    const search =
-        searchInput.value.toLowerCase();
-
-    const rows =
-        document.querySelectorAll("#appointmentsTable tbody tr");
-
-    rows.forEach(function(row) {
-
-        const rowText =
-            row.innerText.toLowerCase();
-
-        if (rowText.includes(search)) {
-            row.style.display = "";
-        } else {
-            row.style.display = "none";
-        }
-
-    });
-
-}
-
-</script>
 
 </body>
 
