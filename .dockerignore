@@ -1,0 +1,9 @@
+﻿.git
+.gitignore
+__pycache__
+*.py[cod]
+database.db
+database.db-*
+.env
+.venv
+venv
