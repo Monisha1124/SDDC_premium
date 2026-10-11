@@ -1,0 +1,638 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Profile | Sri Danwandhri Clinic</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f1e8;
+            color: #173b38;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background: #102f2d;
+            color: white;
+            padding: 22px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: Georgia, serif;
+            font-size: 23px;
+        }
+
+        .subtitle {
+            color: #c8a76b;
+            font-size: 10px;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .back-btn {
+            color: #c8a76b;
+            text-decoration: none;
+            border: 1px solid #c8a76b;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1150px;
+            margin: 40px auto;
+        }
+
+        .eyebrow {
+            color: #b18d4d;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .page-title {
+            font-family: Georgia, serif;
+            font-size: 38px;
+            margin: 10px 0;
+        }
+
+        .intro {
+            color: #68716e;
+            margin-bottom: 30px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 12px 35px rgba(16,47,45,0.07);
+            border: 1px solid #e8e4dc;
+        }
+
+        .profile-top {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: #173b38;
+            color: #c8a76b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Georgia, serif;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .profile-name {
+            font-family: Georgia, serif;
+            font-size: 29px;
+            margin: 0 0 7px;
+        }
+
+        .patient-label {
+            color: #b18d4d;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .detail-box {
+            padding: 17px;
+            background: #f8f6f0;
+            border-radius: 12px;
+        }
+
+        .detail-label {
+            color: #8a8f89;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 9px;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            font-weight: bold;
+            overflow-wrap: anywhere;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin: 25px 0 35px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            border: 1px solid #e8e4dc;
+        }
+
+        .stat-card span {
+            display: block;
+            color: #68716e;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .stat-card strong {
+            display: block;
+            font-family: Georgia, serif;
+            font-size: 32px;
+            margin-top: 10px;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 25px;
+            box-shadow: 0 12px 35px rgba(16,47,45,0.06);
+        }
+
+        .section-card h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            margin: 0 0 8px;
+        }
+
+        .section-description {
+            color: #68716e;
+            font-size: 13px;
+            margin-bottom: 22px;
+        }
+
+        .visit-card {
+            border: 1px solid #e8e4dc;
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 15px;
+            background: #fffefa;
+        }
+
+        .visit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .visit-date {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .status {
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .status-PENDING {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-CONFIRMED {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-RESCHEDULED {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-CANCELLED {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-COMPLETED {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .visit-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .visit-detail {
+            font-size: 13px;
+            color: #68716e;
+            line-height: 1.6;
+        }
+
+        .visit-detail strong {
+            color: #173b38;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #68716e;
+            background: #f8f6f0;
+            border-radius: 12px;
+        }
+
+        @media(max-width: 650px) {
+            header {
+                padding: 18px;
+            }
+
+            header h1 {
+                font-size: 17px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .page-title {
+                font-size: 30px;
+            }
+
+            .profile-card,
+            .section-card {
+                padding: 20px;
+            }
+
+            .details-grid,
+            .visit-details {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-name {
+                font-size: 23px;
+            }
+        }
+        
+.medical-record-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 11px 18px;
+    background: #102f2d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.medical-record-btn:hover {
+    background: #b18d4d;
+    color: #ffffff;
+}
+
+.medical-record-details {
+    margin-top: 22px;
+    padding: 20px;
+    background: #f7f3eb;
+    border-left: 4px solid #b18d4d;
+    border-radius: 10px;
+}
+
+.medical-record-details h3 {
+    color: #102f2d;
+    margin: 0 0 16px;
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+}
+
+.no-medical-record {
+    color: #81796e;
+    font-size: 14px;
+    margin: 0;
+}
+.print-record-btn {
+    display: inline-block;
+    margin: 14px 0 0 8px;
+    padding: 11px 18px;
+    background: #b18d4d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.print-record-btn:hover {
+    background: #92713b;
+    color: #ffffff;
+}
+.print-history-btn {
+    display: inline-block;
+    margin: 15px 0 20px;
+    padding: 12px 20px;
+    background: #102f2d;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.print-history-btn:hover {
+    background: #b18d4d;
+    color: #ffffff;
+}
+
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>Sri Danwandhri Clinic</h1>
+        <div class="subtitle">PATIENT MANAGEMENT PORTAL</div>
+    </div>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="back-btn">
+        ← BACK TO DASHBOARD
+    </a>
+</header>
+
+<main class="container">
+
+    <div class="eyebrow">PATIENT MANAGEMENT</div>
+
+    <h1 class="page-title">Patient Profile</h1>
+
+    <p class="intro">
+        Patient information and complete appointment history.
+    </p>
+    <a
+    href="{{ url_for(
+        'admin_print_patient_history',
+        appointment_id=patient['id']
+    ) }}"
+    class="print-history-btn"
+    target="_blank"
+>
+    Print Complete Patient History
+</a>
+
+    <!-- PATIENT INFORMATION -->
+
+    <section class="profile-card">
+
+        <div class="profile-top">
+
+            <div class="avatar">
+                {{ patient['patient_name'][0]|upper }}
+            </div>
+
+            <div>
+                <h2 class="profile-name">
+                    {{ patient['patient_name'] }}
+                </h2>
+
+                <div class="patient-label">
+                    PATIENT PROFILE
+                </div>
+            </div>
+
+        </div>
+
+        <div class="details-grid">
+
+            <div class="detail-box">
+                <div class="detail-label">PHONE NUMBER</div>
+                <div class="detail-value">
+                    {{ patient['phone'] }}
+                </div>
+            </div>
+
+            <div class="detail-box">
+                <div class="detail-label">EMAIL ADDRESS</div>
+                <div class="detail-value">
+                    {{ patient['email'] or 'Not provided' }}
+                </div>
+            </div>
+
+            <div class="detail-box">
+                <div class="detail-label">FIRST RECORDED APPOINTMENT</div>
+                <div class="detail-value">
+                    {{ visits[-1]['appointment_date'] if visits else 'Not available' }}
+                </div>
+            </div>
+
+            <div class="detail-box">
+                <div class="detail-label">LATEST APPOINTMENT</div>
+                <div class="detail-value">
+                    {{ visits[0]['appointment_date'] if visits else 'Not available' }}
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- VISIT STATISTICS -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span>TOTAL VISITS / BOOKINGS</span>
+            <strong>{{ total_visits }}</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>COMPLETED VISITS</span>
+            <strong>{{ completed_visits }}</strong>
+        </div>
+
+    </div>
+
+    <!-- APPOINTMENT HISTORY -->
+
+    <section class="section-card">
+
+        <h2>Appointment History</h2>
+
+        <p class="section-description">
+            Every appointment associated with this patient's phone number.
+        </p>
+
+        {% if visits %}
+
+            {% for visit in visits %}
+
+                <div class="visit-card">
+
+                    <div class="visit-header">
+
+                        <div class="visit-date">
+                            Visit {{ loop.index }} ·
+                            {{ visit['appointment_date'] }}
+                        </div>
+
+                        <span class="status status-{{ visit['status'] }}">
+                            {{ visit['status'] }}
+                        </span>
+
+                    </div>
+
+                    <div class="visit-details">
+
+                        <div class="visit-detail">
+                            <strong>Appointment time:</strong><br>
+                            {{ visit['appointment_time'] or 'Not specified' }}
+                        </div>
+
+                        <div class="visit-detail">
+                            <strong>Concern:</strong><br>
+                            {{ visit['concern'] or 'Not provided' }}
+                        </div>
+
+                        <div class="visit-detail">
+                            <strong>Dental concern:</strong><br>
+                            {{ visit['dental_concern'] or 'Not provided' }}
+                        </div>
+
+                        <div class="visit-detail">
+                            <strong>Doctor's procedure:</strong><br>
+                            {{ visit['doctor_procedure'] or 'Not recorded' }}
+                        </div>
+
+                        <div class="visit-detail">
+                            <strong>Patient message:</strong><br>
+                            {{ visit['message'] or 'No message' }}
+                        </div>
+                        
+                        <!-- MEDICAL RECORD DETAILS -->
+                        <div class="medical-record-details">
+
+                            <h3>Medical Record</h3>
+
+                            {% if visit['diagnosis'] or visit['treatment'] or visit['prescription'] or visit['medical_history'] or visit['doctor_notes'] %}
+
+                                <div class="visit-detail">
+                                    <strong>Medical History:</strong><br>
+                                    {{ visit['medical_history'] or 'Not recorded' }}
+                                </div>
+
+                                <div class="visit-detail">
+                                    <strong>Diagnosis:</strong><br>
+                                    {{ visit['diagnosis'] or 'Not recorded' }}
+                                </div>
+
+                                <div class="visit-detail">
+                                    <strong>Treatment:</strong><br>
+                                    {{ visit['treatment'] or 'Not recorded' }}
+                                </div>
+
+                                <div class="visit-detail">
+                                    <strong>Prescription:</strong><br>
+                                    {{ visit['prescription'] or 'Not recorded' }}
+                                </div>
+
+                                <div class="visit-detail">
+                                    <strong>Doctor's Notes:</strong><br>
+                                    {{ visit['doctor_notes'] or 'Not recorded' }}
+                                </div>
+
+                            {% else %}
+
+                                <p class="no-medical-record">
+                                    No medical record has been added for this visit yet.
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        {% if visit['status'] == 'RESCHEDULED' %}
+
+                            <div class="visit-detail">
+                                <strong>Rescheduled date:</strong><br>
+                                {{ visit['rescheduled_date'] or 'Not specified' }}
+                            </div>
+
+                            <div class="visit-detail">
+                                <strong>Rescheduled time:</strong><br>
+                                {{ visit['rescheduled_time'] or 'Not specified' }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                      <!-- MEDICAL RECORD BUTTON -->
+                    <a
+                        href="{{ url_for(
+                            'admin_visit_record',
+                            appointment_id=visit['id']
+                        ) }}"
+                        class="medical-record-btn"
+                    >
+                        Add / View Medical Record
+                    </a>
+                    <a
+    href="{{ url_for(
+        'admin_print_visit',
+        appointment_id=visit['id']
+    ) }}"
+    class="print-record-btn"
+    target="_blank"
+>
+    Print Current Visit
+</a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+                No appointment history available.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+</body>
+</html>
