@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Patient Visit Record | Sri Danwandhri Clinic</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            background: #eeeeee;
+            color: #263b38;
+            font-family: Arial, sans-serif;
+        }
+
+        .print-container {
+            max-width: 850px;
+            margin: auto;
+            padding: 40px;
+            background: white;
+            border: 1px solid #dddddd;
+        }
+
+        .clinic-header {
+            text-align: center;
+            border-bottom: 3px solid #b18d4d;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .clinic-header h1 {
+            color: #102f2d;
+            font-family: Georgia, serif;
+            margin: 0 0 10px;
+            font-size: 29px;
+        }
+
+        .clinic-header p {
+            margin: 5px 0;
+            font-size: 13px;
+        }
+
+        .document-title {
+            text-align: center;
+            color: #102f2d;
+            margin: 25px 0;
+            font-size: 21px;
+        }
+
+        .patient-section,
+        .record-section {
+            margin-bottom: 22px;
+        }
+
+        .section-heading {
+            background: #102f2d;
+            color: white;
+            padding: 10px 13px;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .detail {
+            padding: 10px;
+            background: #f7f3eb;
+            border-radius: 5px;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .detail strong {
+            display: block;
+            color: #102f2d;
+            margin-bottom: 6px;
+        }
+
+        .record-content {
+            border: 1px solid #dedbd3;
+            padding: 14px;
+            min-height: 55px;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 65px;
+        }
+
+        .signature {
+            width: 45%;
+            border-top: 1px solid #333;
+            padding-top: 9px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .footer {
+            border-top: 1px solid #ddd;
+            margin-top: 35px;
+            padding-top: 12px;
+            text-align: center;
+            color: #777;
+            font-size: 11px;
+        }
+
+        .print-actions {
+            max-width: 850px;
+            margin: 0 auto 18px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .print-actions button,
+        .print-actions a {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #102f2d;
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .print-container {
+                max-width: none;
+                border: none;
+                padding: 0;
+            }
+
+            .print-actions {
+                display: none !important;
+            }
+
+            .record-section,
+            .patient-section {
+                break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .print-container {
+                padding: 20px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="print-actions">
+   <button onclick="window.print()" class="print-btn">
+        Print / Save as PDF
+    </button>
+
+    <button onclick="downloadPDF()" class="pdf-btn">
+        Download as PDF
+    </button>
+</div>
+
+    <a href="{{ url_for(
+        'admin_patient_profile',
+        appointment_id=appointment['id']
+    ) }}">
+        Back to Patient Profile
+    </a>
+</div>
+
+<div class="print-container">
+
+    <div class="clinic-header">
+        <h1>Sri Danwandhri Clinic</h1>
+
+        <p>
+            Kattupudi Road, Near Police Station,
+            SVM Nagar, Pallikonda,
+            Tamil Nadu - 635809
+        </p>
+
+        <p>Phone: 9443397205</p>
+
+        <p><strong>PATIENT MEDICAL RECORD</strong></p>
+    </div>
+
+    <h2 class="document-title">Individual Visit Report</h2>
+
+    <div class="patient-section">
+
+        <div class="section-heading">Patient Information</div>
+
+        <div class="details-grid">
+
+            <div class="detail">
+                <strong>Patient Name</strong>
+                {{ appointment['patient_name'] or 'Not provided' }}
+            </div>
+
+            <div class="detail">
+                <strong>Phone Number</strong>
+                {{ appointment['phone'] or 'Not provided' }}
+            </div>
+
+            <div class="detail">
+                <strong>Email</strong>
+                {{ appointment['email'] or 'Not provided' }}
+            </div>
+
+            <div class="detail">
+                <strong>Visit ID</strong>
+                #{{ appointment['id'] }}
+            </div>
+
+            <div class="detail">
+                <strong>Appointment Date</strong>
+                {{ appointment['appointment_date'] or 'Not provided' }}
+            </div>
+
+            <div class="detail">
+                <strong>Appointment Time</strong>
+                {{ appointment['appointment_time'] or 'Not provided' }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="record-section">
+        <div class="section-heading">Medical History</div>
+        <div class="record-content">{{ record['medical_history'] or 'Not recorded' if record else 'Not recorded' }}</div>
+    </div>
+
+    <div class="record-section">
+        <div class="section-heading">Diagnosis</div>
+        <div class="record-content">{{ record['diagnosis'] or 'Not recorded' if record else 'Not recorded' }}</div>
+    </div>
+
+    <div class="record-section">
+        <div class="section-heading">Treatment / Procedure</div>
+        <div class="record-content">{{ record['treatment'] or 'Not recorded' if record else 'Not recorded' }}</div>
+    </div>
+
+    <div class="record-section">
+        <div class="section-heading">Prescription</div>
+        <div class="record-content">{{ record['prescription'] or 'Not recorded' if record else 'Not recorded' }}</div>
+    </div>
+
+    <div class="record-section">
+        <div class="section-heading">Doctor's Notes</div>
+        <div class="record-content">{{ record['doctor_notes'] or 'Not recorded' if record else 'Not recorded' }}</div>
+    </div>
+
+    <div class="signature-section">
+
+        <div class="signature">
+            Patient Signature
+        </div>
+
+        <div class="signature">
+            Doctor's Signature
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Sri Danwandhri Clinic | Confidential Patient Medical Record
+    </div>
+
+</div>
+<script>
+    function downloadPDF() {
+        window.print();
+    }
+</script>
+</body>
+</html>
